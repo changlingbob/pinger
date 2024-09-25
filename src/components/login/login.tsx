@@ -20,7 +20,7 @@ export const Login: React.FC<ILoginProps> = ({ className }) => {
   return (
     <div className={classNames(className, styles.content)}>
       <input
-        placeholder="Username"
+        placeholder="Email"
         onChange={(ev) => {
           setUser(ev.target.value);
         }}
