@@ -6,6 +6,7 @@ export default ({ mode }) => {
   const isDevelopment = mode === 'development';
   return defineConfig({
     root: 'src',
+    base: '/pinger/',
     mode,
     plugins: [
       react({
