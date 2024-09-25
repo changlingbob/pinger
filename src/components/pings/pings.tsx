@@ -19,7 +19,7 @@ export const Pings: React.FC<IPingsProps> = ({ className }) => {
     if (doc.data().channel === channel) {
       content.push([
         parseInt(
-          `${doc.data().time.seconds}${`${doc.data().time.nanoseconds}`.slice(0, 4)}`,
+          `${doc.data().time.seconds}${`${doc.data().time.nanoseconds}`.slice(0, 3)}`,
           10
         ),
         doc.data().ping,
