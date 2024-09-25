@@ -1,0 +1,16 @@
+@use '@theme/mixins.scss';
+@use '@theme/variables.scss';
+
+.content {
+  padding: variables.$simple-margin;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: variables.$simple-margin;
+
+  .button {
+    width: 8rem;
+    height: 2rem;
+  }
+}
