@@ -13,27 +13,36 @@ export interface IPingsProps {
 export const Pings: React.FC<IPingsProps> = ({ className }) => {
   const { uuid, data, channel } = useFirebase();
 
-  const elements: React.ReactElement[] = [];
+  const content: [number, string, string][] = [];
 
   data?.forEach((doc) => {
     if (doc.data().channel === channel) {
-      elements.push(
-        <div
-          key={`${doc.data().time.seconds}${doc.data().time.nanoseconds}`}
-          className={classNames(styles.row, {
-            [styles.own]: doc.data().uuid === uuid,
-          })}
-        >
-          <span>
-            {format(new Date(doc.data().time.seconds * 1000), 'do MMM HH:mm')}
-          </span>
-          <span>{doc.data().ping}</span>
-        </div>
-      );
+      content.push([
+        parseInt(
+          `${doc.data().time.seconds}${`${doc.data().time.nanoseconds}`.slice(0, 4)}`,
+          10
+        ),
+        doc.data().ping,
+        doc.data().uuid,
+      ]);
     }
   });
 
   return (
-    <div className={classNames(className, styles.content)}>{elements}</div>
+    <div className={classNames(className, styles.content)}>
+      {content
+        .sort((a, b) => b[0] - a[0])
+        .map((item) => (
+          <div
+            key={`${item[0]}`}
+            className={classNames(styles.row, {
+              [styles.other]: item[2] !== uuid,
+            })}
+          >
+            <span>{format(new Date(item[0]), 'do MMM HH:mm')}</span>
+            <span>{item[1]}</span>
+          </div>
+        ))}
+    </div>
   );
 };

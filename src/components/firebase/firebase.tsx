@@ -33,7 +33,9 @@ export const FirebaseProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [uuid, setUuid] = React.useState<string>('');
-  const [channel, setChannel] = React.useState<string>('');
+  const [channel, setChannel] = React.useState<string>(
+    localStorage.getItem('channel') || ''
+  );
   const [data, setData] =
     React.useState<QuerySnapshot<DocumentData, DocumentData>>();
   const lock = React.useRef<boolean>();
@@ -65,6 +67,7 @@ export const FirebaseProvider: React.FC<React.PropsWithChildren> = ({
 
   const login = (user: string, password: string, chan: string) => {
     setChannel(chan);
+    localStorage.setItem('channel', chan);
     signInWithEmailAndPassword(auth, user, password).then(
       (fulfilled) => !!fulfilled
     );

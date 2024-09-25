@@ -15,10 +15,10 @@ export const Controls: React.FC<IControlsProps> = ({ className }) => {
 
   return (
     <div className={classNames(className, styles.content)}>
-      <Button className={styles.button} onClick={() => send('small')}>
+      <Button className={styles.button} onClick={() => send('ping')}>
         Ping
       </Button>
-      <Button className={styles.button} onClick={() => send('big')}>
+      <Button className={styles.button} onClick={() => send('big ping')}>
         Big Ping
       </Button>
     </div>

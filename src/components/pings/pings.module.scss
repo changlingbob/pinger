@@ -1,7 +1,14 @@
+@use '@theme/variables';
+
 .row {
   width: 100%;
   display: grid;
   grid-template: '.' '.';
   grid-template-columns: 1fr 1fr;
   justify-items: center;
+
+  &.other {
+    background: variables.$neutral-darker;
+    color: white;
+  }
 }
