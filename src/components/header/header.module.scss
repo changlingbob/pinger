@@ -1,0 +1,8 @@
+@use '@theme/mixins';
+@use '@theme/variables';
+
+.content {
+  @include mixins.panel-border(variables.$neutral-dark);
+  text-align: center;
+  padding: variables.$simple-margin;
+}

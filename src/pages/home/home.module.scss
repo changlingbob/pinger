@@ -1,0 +1,7 @@
+@use '../../styles/variables.scss';
+
+.content {
+  width: 100%;
+  min-height: 100dvh;
+  background: variables.$neutral-light;
+}
