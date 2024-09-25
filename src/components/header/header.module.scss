@@ -5,7 +5,7 @@
   @include mixins.panel-border(variables.$neutral-dark);
   text-align: center;
   padding: variables.$simple-margin;
-
+  align-items: center;
   display: grid;
   grid-template: '. header logout';
   grid-template-columns: 1fr 2fr 1fr;
