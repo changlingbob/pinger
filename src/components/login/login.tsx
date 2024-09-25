@@ -11,10 +11,11 @@ export interface ILoginProps {
 }
 
 export const Login: React.FC<ILoginProps> = ({ className }) => {
-  const { login } = useFirebase();
+  const { login, register } = useFirebase();
   const [user, setUser] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [channel, setChannel] = React.useState('');
+  const [message, setMessage] = React.useState('');
 
   return (
     <div className={classNames(className, styles.content)}>
@@ -40,10 +41,21 @@ export const Login: React.FC<ILoginProps> = ({ className }) => {
 
       <Button
         className={styles.button}
-        onClick={() => login(user, password, channel)}
+        onClick={() =>
+          login(user, password, channel).then((msg) => setMessage(msg))
+        }
       >
         Log in
       </Button>
+      <Button
+        className={styles.button}
+        onClick={() =>
+          register(user, password, channel).then((msg) => setMessage(msg))
+        }
+      >
+        Register
+      </Button>
+      {message}
     </div>
   );
 };

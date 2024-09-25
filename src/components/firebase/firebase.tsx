@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { initializeApp } from 'firebase/app';
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -20,7 +21,8 @@ export type FirebaseData = {
   uuid: string;
   send: (type: string) => void;
   data: QuerySnapshot<DocumentData, DocumentData> | undefined;
-  login: (user: string, password: string, chan: string) => void;
+  login: (user: string, password: string, chan: string) => Promise<string>;
+  register: (user: string, password: string, chan: string) => Promise<string>;
   logout: () => void;
   channel: string;
 };
@@ -68,9 +70,19 @@ export const FirebaseProvider: React.FC<React.PropsWithChildren> = ({
   const login = (user: string, password: string, chan: string) => {
     setChannel(chan);
     localStorage.setItem('channel', chan);
-    signInWithEmailAndPassword(auth, user, password).then(
-      (fulfilled) => !!fulfilled
-    );
+
+    return signInWithEmailAndPassword(auth, user, password)
+      .then(() => '')
+      .catch(() => 'Login failed');
+  };
+
+  const register = (user: string, password: string, chan: string) => {
+    setChannel(chan);
+    localStorage.setItem('channel', chan);
+
+    return createUserWithEmailAndPassword(auth, user, password)
+      .then(() => '')
+      .catch(() => 'Registration failed');
   };
 
   onAuthStateChanged(auth, (user) => {
@@ -105,7 +117,7 @@ export const FirebaseProvider: React.FC<React.PropsWithChildren> = ({
 
   return (
     <FirebaseContext.Provider
-      value={{ uuid, data, send, login, channel, logout }}
+      value={{ uuid, data, send, login, channel, logout, register }}
     >
       {children}
     </FirebaseContext.Provider>
