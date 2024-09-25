@@ -41,17 +41,25 @@ export const Login: React.FC<ILoginProps> = ({ className }) => {
 
       <Button
         className={styles.button}
-        onClick={() =>
-          login(user, password, channel).then((msg) => setMessage(msg))
-        }
+        onClick={() => {
+          if (channel) {
+            login(user, password, channel).then((msg) => setMessage(msg));
+          } else {
+            setMessage('Enter a channel');
+          }
+        }}
       >
         Log in
       </Button>
       <Button
         className={styles.button}
-        onClick={() =>
-          register(user, password, channel).then((msg) => setMessage(msg))
-        }
+        onClick={() => {
+          if (channel) {
+            register(user, password, channel).then((msg) => setMessage(msg));
+          } else {
+            setMessage('Enter a channel');
+          }
+        }}
       >
         Register
       </Button>
